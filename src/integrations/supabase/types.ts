@@ -9,7 +9,134 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      booking_sessions: {
+        Row: {
+          created_at: string
+          duration_hours: number
+          hourly_rate: number
+          id: string
+          mentee_id: string
+          mentor_id: string
+          mentor_payout: number
+          nowledge_fee: number
+          scheduled_at: string | null
+          session_description: string | null
+          session_title: string
+          status: string
+          total_amount: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          duration_hours?: number
+          hourly_rate: number
+          id?: string
+          mentee_id: string
+          mentor_id: string
+          mentor_payout: number
+          nowledge_fee: number
+          scheduled_at?: string | null
+          session_description?: string | null
+          session_title: string
+          status?: string
+          total_amount: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          duration_hours?: number
+          hourly_rate?: number
+          id?: string
+          mentee_id?: string
+          mentor_id?: string
+          mentor_payout?: number
+          nowledge_fee?: number
+          scheduled_at?: string | null
+          session_description?: string | null
+          session_title?: string
+          status?: string
+          total_amount?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "booking_sessions_mentor_id_fkey"
+            columns: ["mentor_id"]
+            isOneToOne: false
+            referencedRelation: "mentor_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mentor_profiles: {
+        Row: {
+          bio: string | null
+          calculated_hourly_rate: number | null
+          company: string | null
+          created_at: string
+          desired_monthly_income: number | null
+          experience_years: number | null
+          expertise_areas: string[] | null
+          id: string
+          is_active: boolean | null
+          job_title: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          bio?: string | null
+          calculated_hourly_rate?: number | null
+          company?: string | null
+          created_at?: string
+          desired_monthly_income?: number | null
+          experience_years?: number | null
+          expertise_areas?: string[] | null
+          id?: string
+          is_active?: boolean | null
+          job_title?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          bio?: string | null
+          calculated_hourly_rate?: number | null
+          company?: string | null
+          created_at?: string
+          desired_monthly_income?: number | null
+          experience_years?: number | null
+          expertise_areas?: string[] | null
+          id?: string
+          is_active?: boolean | null
+          job_title?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
