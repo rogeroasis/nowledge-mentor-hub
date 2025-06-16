@@ -4,6 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
+  { label: "Find mentors", href: "/mentors" },
   { label: "About us", href: "#" },
   { label: "Our mentors", href: "#mentors" },
   { label: "Blog", href: "#" },
