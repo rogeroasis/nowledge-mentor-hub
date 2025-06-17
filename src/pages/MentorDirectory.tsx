@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -36,37 +35,62 @@ const MentorDirectory = () => {
 
   const fetchMentors = async () => {
     try {
-      const { data, error } = await supabase
+      // Fetch mentor profiles and their corresponding user profiles separately
+      const { data: mentorData, error: mentorError } = await supabase
         .from('mentor_profiles')
-        .select(`
-          id,
-          bio,
-          experience_years,
-          expertise_areas,
-          company,
-          job_title,
-          calculated_hourly_rate,
-          user_id,
-          profiles:user_id (
-            full_name,
-            email
-          )
-        `)
+        .select('*')
         .eq('is_active', true);
 
-      if (error) {
-        console.error('Error fetching mentors:', error);
+      if (mentorError) {
+        console.error('Error fetching mentors:', mentorError);
         toast({
           title: "Error",
           description: "Failed to load mentors",
           variant: "destructive"
         });
-      } else {
-        console.log('Fetched mentors:', data);
-        // Filter out mentors without profiles
-        const validMentors = (data || []).filter(mentor => mentor.profiles !== null);
-        setMentors(validMentors as MentorProfile[]);
+        return;
       }
+
+      if (!mentorData || mentorData.length === 0) {
+        setMentors([]);
+        return;
+      }
+
+      // Get user IDs from mentor profiles
+      const userIds = mentorData.map(mentor => mentor.user_id);
+
+      // Fetch corresponding profiles
+      const { data: profilesData, error: profilesError } = await supabase
+        .from('profiles')
+        .select('id, full_name, email')
+        .in('id', userIds);
+
+      if (profilesError) {
+        console.error('Error fetching profiles:', profilesError);
+        toast({
+          title: "Error",
+          description: "Failed to load mentor profiles",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      // Combine mentor data with profile data
+      const mentorsWithProfiles: MentorProfile[] = mentorData
+        .map(mentor => {
+          const profile = profilesData?.find(p => p.id === mentor.user_id);
+          return {
+            ...mentor,
+            profiles: profile ? {
+              full_name: profile.full_name || '',
+              email: profile.email
+            } : null
+          };
+        })
+        .filter(mentor => mentor.profiles !== null); // Only include mentors with valid profiles
+
+      console.log('Fetched mentors:', mentorsWithProfiles);
+      setMentors(mentorsWithProfiles);
     } catch (error) {
       console.error('Error:', error);
     } finally {
