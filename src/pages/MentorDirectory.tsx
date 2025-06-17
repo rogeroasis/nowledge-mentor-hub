@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -39,7 +40,7 @@ const MentorDirectory = () => {
         .from('mentor_profiles')
         .select(`
           *,
-          profiles!mentor_profiles_user_id_fkey (
+          profiles (
             full_name,
             email
           )
