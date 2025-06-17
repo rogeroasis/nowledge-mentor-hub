@@ -39,8 +39,15 @@ const MentorDirectory = () => {
       const { data, error } = await supabase
         .from('mentor_profiles')
         .select(`
-          *,
-          profiles (
+          id,
+          bio,
+          experience_years,
+          expertise_areas,
+          company,
+          job_title,
+          calculated_hourly_rate,
+          user_id,
+          profiles:user_id (
             full_name,
             email
           )
@@ -58,7 +65,7 @@ const MentorDirectory = () => {
         console.log('Fetched mentors:', data);
         // Filter out mentors without profiles
         const validMentors = (data || []).filter(mentor => mentor.profiles !== null);
-        setMentors(validMentors);
+        setMentors(validMentors as MentorProfile[]);
       }
     } catch (error) {
       console.error('Error:', error);
