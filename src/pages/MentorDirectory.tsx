@@ -39,7 +39,7 @@ const MentorDirectory = () => {
         .from('mentor_profiles')
         .select(`
           *,
-          profiles:user_id (
+          profiles!mentor_profiles_user_id_fkey (
             full_name,
             email
           )
