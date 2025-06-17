@@ -20,7 +20,7 @@ interface MentorProfile {
   profiles: {
     full_name: string;
     email: string;
-  };
+  } | null;
 }
 
 const MentorDirectory = () => {
@@ -40,7 +40,7 @@ const MentorDirectory = () => {
         .from('mentor_profiles')
         .select(`
           *,
-          profiles (
+          profiles!inner (
             full_name,
             email
           )
@@ -55,6 +55,7 @@ const MentorDirectory = () => {
           variant: "destructive"
         });
       } else {
+        console.log('Fetched mentors:', data);
         setMentors(data || []);
       }
     } catch (error) {

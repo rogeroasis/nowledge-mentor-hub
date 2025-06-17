@@ -25,7 +25,7 @@ interface MentorProfile {
   profiles: {
     full_name: string;
     email: string;
-  };
+  } | null;
 }
 
 interface BookingModalProps {
