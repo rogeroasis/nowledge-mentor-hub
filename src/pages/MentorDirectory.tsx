@@ -40,7 +40,7 @@ const MentorDirectory = () => {
         .from('mentor_profiles')
         .select(`
           *,
-          profiles!inner (
+          profiles (
             full_name,
             email
           )
@@ -56,7 +56,9 @@ const MentorDirectory = () => {
         });
       } else {
         console.log('Fetched mentors:', data);
-        setMentors(data || []);
+        // Filter out mentors without profiles
+        const validMentors = (data || []).filter(mentor => mentor.profiles !== null);
+        setMentors(validMentors);
       }
     } catch (error) {
       console.error('Error:', error);
