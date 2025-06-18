@@ -1,3 +1,4 @@
+
 import React from "react";
 import Header from "@/components/Header";
 import MentorCard from "@/components/MentorCard";
@@ -30,11 +31,11 @@ const Index = () => {
             FIND A MENTOR
           </a>
           <a
-            href="/auth"
+            href="/tasks"
             className="px-8 py-4 border-2 border-black text-black rounded font-bold text-lg shadow-[4px_4px_0_0_#000] hover:shadow-none transition"
             style={{ letterSpacing: "-0.03em" }}
           >
-            BECOME A MENTOR
+            BROWSE TASKS
           </a>
         </div>
       </section>
@@ -46,18 +47,18 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
-              <h3 className="text-xl font-bold mb-2">Browse Mentors</h3>
-              <p className="text-gray-600">Find experienced professionals in your field</p>
+              <h3 className="text-xl font-bold mb-2">Browse Mentors & Tasks</h3>
+              <p className="text-gray-600">Find experienced professionals or tasks that match your expertise</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
-              <h3 className="text-xl font-bold mb-2">Book a Session</h3>
-              <p className="text-gray-600">Schedule a 1-on-1 mentoring session</p>
+              <h3 className="text-xl font-bold mb-2">Connect & Apply</h3>
+              <p className="text-gray-600">Book mentoring sessions or apply for tasks</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
-              <h3 className="text-xl font-bold mb-2">Learn & Grow</h3>
-              <p className="text-gray-600">Get personalized advice and accelerate your career</p>
+              <h3 className="text-xl font-bold mb-2">Learn & Earn</h3>
+              <p className="text-gray-600">Get mentored or share your expertise and earn money</p>
             </div>
           </div>
         </div>

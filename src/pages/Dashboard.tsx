@@ -1,12 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import MentorProfileForm from '@/components/MentorProfileForm';
 import { useToast } from '@/hooks/use-toast';
+import { Users, Briefcase, Plus } from 'lucide-react';
 
 interface MentorProfile {
   id: string;
@@ -25,6 +26,7 @@ const Dashboard = () => {
   const [mentorProfile, setMentorProfile] = useState<MentorProfile | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -93,10 +95,45 @@ const Dashboard = () => {
           <h2 className="text-xl font-bold mb-2">Welcome, {user.email}</h2>
           <p className="text-gray-600">
             {mentorProfile 
-              ? 'Manage your mentor profile and bookings' 
+              ? 'Manage your mentor profile and explore opportunities' 
               : 'Set up your mentor profile to start earning money sharing your expertise'
             }
           </p>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="grid gap-4 md:grid-cols-3 mb-8">
+          <Card className="border-2 border-black shadow-[2px_2px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] transition-shadow cursor-pointer"
+                onClick={() => navigate('/mentors')}>
+            <CardContent className="p-6 text-center">
+              <Users className="h-8 w-8 mx-auto mb-2" />
+              <h3 className="font-bold">Browse Mentors</h3>
+              <p className="text-sm text-gray-600">Find other mentors</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="border-2 border-black shadow-[2px_2px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] transition-shadow cursor-pointer"
+                onClick={() => navigate('/tasks')}>
+            <CardContent className="p-6 text-center">
+              <Briefcase className="h-8 w-8 mx-auto mb-2" />
+              <h3 className="font-bold">Available Tasks</h3>
+              <p className="text-sm text-gray-600">Find work opportunities</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="border-2 border-black shadow-[2px_2px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] transition-shadow cursor-pointer"
+                onClick={() => {
+                  toast({
+                    title: "Coming Soon",
+                    description: "Task creation feature will be available soon!",
+                  });
+                }}>
+            <CardContent className="p-6 text-center">
+              <Plus className="h-8 w-8 mx-auto mb-2" />
+              <h3 className="font-bold">Post a Task</h3>
+              <p className="text-sm text-gray-600">Get help with your project</p>
+            </CardContent>
+          </Card>
         </div>
 
         {!mentorProfile ? (
@@ -136,11 +173,28 @@ const Dashboard = () => {
 
             <Card className="border-2 border-black shadow-[4px_4px_0_0_#000]">
               <CardHeader>
-                <CardTitle>Recent Bookings</CardTitle>
-                <CardDescription>Your upcoming mentoring sessions</CardDescription>
+                <CardTitle>Recent Activity</CardTitle>
+                <CardDescription>Your recent bookings and tasks</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">No bookings yet. Share your profile to get started!</p>
+                <p className="text-gray-600">No recent activity. Start by browsing available tasks or promoting your profile!</p>
+                <div className="flex gap-2 mt-4">
+                  <Button 
+                    size="sm"
+                    onClick={() => navigate('/tasks')}
+                    className="bg-black text-white shadow-[2px_2px_0_0_#000] hover:shadow-none"
+                  >
+                    VIEW TASKS
+                  </Button>
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => navigate('/mentors')}
+                    className="border-2 border-black shadow-[2px_2px_0_0_#000] hover:shadow-none"
+                  >
+                    BROWSE MENTORS
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </div>

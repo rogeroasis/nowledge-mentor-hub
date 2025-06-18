@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import MentorDirectory from "./pages/MentorDirectory";
+import Tasks from "./pages/Tasks";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/mentors" element={<MentorDirectory />} />
+            <Route path="/tasks" element={<Tasks />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
