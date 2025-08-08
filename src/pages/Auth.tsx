@@ -5,6 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Navigate } from 'react-router-dom';
+import { cleanupAuthState } from '@/lib/authCleanup';
+import { validatePasswordComplexity, checkPwnedPassword } from '@/lib/password';
+import { supabase } from '@/integrations/supabase/client';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -25,6 +28,14 @@ const Auth = () => {
     setLoading(true);
 
     try {
+      // Clean up any previous auth state to avoid limbo
+      cleanupAuthState();
+      try {
+        await supabase.auth.signOut({ scope: 'global' });
+      } catch (_) {
+        // ignore
+      }
+
       let result;
       if (isLogin) {
         result = await signIn(email, password);
@@ -38,6 +49,26 @@ const Auth = () => {
           setLoading(false);
           return;
         }
+
+        // Enforce strong password and check against known breaches
+        const complexityError = validatePasswordComplexity(password);
+        if (complexityError) {
+          toast({ title: "Weak password", description: complexityError, variant: "destructive" });
+          setLoading(false);
+          return;
+        }
+
+        const breachCount = await checkPwnedPassword(password);
+        if (breachCount > 0) {
+          toast({
+            title: "Compromised password",
+            description: `This password appears in ${breachCount} known breaches. Please choose a different one.`,
+            variant: "destructive"
+          });
+          setLoading(false);
+          return;
+        }
+
         result = await signUp(email, password, fullName);
       }
 
@@ -126,7 +157,7 @@ const Auth = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-3 py-2 border-2 border-black rounded focus:outline-none focus:ring-2 focus:ring-black"
                 required
-                minLength={6}
+                minLength={12}
               />
             </div>
             <Button
