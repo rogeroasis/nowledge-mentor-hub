@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { User, Calendar, DollarSign } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import BookingModal from '@/components/BookingModal';
+import { mentorsMock } from '@/data/mockMentors';
 
 interface MentorProfile {
   id: string;
@@ -52,7 +53,22 @@ const MentorDirectory = () => {
       }
 
       if (!mentorData || mentorData.length === 0) {
-        setMentors([]);
+        // Fallback to mock mentors when DB is empty
+        const mapped = mentorsMock.map((m) => ({
+          id: m.id,
+          bio: m.bio,
+          experience_years: (m as any).experience_years ?? 6,
+          expertise_areas: m.expertise,
+          company: m.company,
+          job_title: m.role,
+          calculated_hourly_rate: m.hourlyRate,
+          user_id: m.id,
+          profiles: {
+            full_name: m.name,
+            email: m.email,
+          },
+        })) as MentorProfile[];
+        setMentors(mapped);
         return;
       }
 

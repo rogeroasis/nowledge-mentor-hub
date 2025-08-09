@@ -8,8 +8,8 @@ const navLinks = [
   { label: "Browse tasks", href: "/tasks" },
   { label: "About us", href: "/about" },
   { label: "Our mentors", href: "#mentors" },
-  { label: "Blog", href: "#" },
-  { label: "FAQs", href: "#" },
+  { label: "Blog", href: "/blog" },
+  { label: "FAQs", href: "/faq" },
 ];
 
 const Header = () => {

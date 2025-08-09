@@ -11,6 +11,8 @@ import Dashboard from "./pages/Dashboard";
 import MentorDirectory from "./pages/MentorDirectory";
 import Tasks from "./pages/Tasks";
 import About from "./pages/About";
+import Blog from "./pages/Blog";
+import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +31,8 @@ const App = () => (
             <Route path="/mentors" element={<MentorDirectory />} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/about" element={<About />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/faq" element={<FAQ />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
