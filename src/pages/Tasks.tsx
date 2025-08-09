@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { Navigate } from 'react-router-dom';
+
 import Header from '@/components/Header';
 import TasksHeader from '@/components/TasksHeader';
 import TasksList from '@/components/TasksList';
@@ -13,18 +13,15 @@ const Tasks = () => {
 
   if (loading || tasksLoading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-2xl font-bold">Loading tasks...</div>
       </div>
     );
   }
 
-  if (!user) {
-    return <Navigate to="/auth" replace />;
-  }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Header />
       
       <main className="max-w-6xl mx-auto p-8">

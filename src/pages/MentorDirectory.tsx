@@ -106,7 +106,26 @@ const MentorDirectory = () => {
         .filter(mentor => mentor.profiles !== null); // Only include mentors with valid profiles
 
       console.log('Fetched mentors:', mentorsWithProfiles);
-      setMentors(mentorsWithProfiles);
+
+      if (!mentorsWithProfiles || mentorsWithProfiles.length === 0) {
+        const mapped = mentorsMock.map((m) => ({
+          id: m.id,
+          bio: m.bio,
+          experience_years: (m as any).experience_years ?? 6,
+          expertise_areas: m.expertise,
+          company: m.company,
+          job_title: m.role,
+          calculated_hourly_rate: m.hourlyRate,
+          user_id: m.id,
+          profiles: {
+            full_name: m.name,
+            email: m.email,
+          },
+        })) as MentorProfile[];
+        setMentors(mapped);
+      } else {
+        setMentors(mentorsWithProfiles);
+      }
     } catch (error) {
       console.error('Error:', error);
     } finally {
@@ -128,11 +147,11 @@ const MentorDirectory = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <header className="border-b-2 border-black p-4">
+    <div className="min-h-screen bg-background">
+      <header className="border-b p-4 bg-gradient-to-r from-primary/5 to-accent/5">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-3xl font-extrabold tracking-tight mb-2">FIND YOUR MENTOR</h1>
-          <p className="text-gray-600">Connect with experienced professionals to accelerate your growth</p>
+          <p className="text-muted-foreground">Connect with experienced professionals to accelerate your growth</p>
         </div>
       </header>
 
@@ -143,7 +162,7 @@ const MentorDirectory = () => {
             <h3 className="text-xl font-bold text-gray-900 mb-2">No mentors available yet</h3>
             <p className="text-gray-600">Be the first to join as a mentor!</p>
             <Button 
-              className="mt-4 bg-black text-white shadow-[2px_2px_0_0_#000] hover:shadow-none"
+              className="mt-4 bg-primary text-primary-foreground hover:bg-primary/90"
               onClick={() => window.location.href = '/auth'}
             >
               BECOME A MENTOR
@@ -152,10 +171,10 @@ const MentorDirectory = () => {
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {mentors.map((mentor) => (
-              <Card key={mentor.id} className="border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_#000] transition-shadow">
+              <Card key={mentor.id} className="border border-border shadow-sm hover:shadow-md transition-shadow">
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="h-12 w-12 rounded-full bg-gray-200 border-2 border-black flex items-center justify-center font-bold">
+                    <div className="h-12 w-12 rounded-full bg-muted border border-border flex items-center justify-center font-bold">
                       {mentor.profiles?.full_name?.[0] || 'M'}
                     </div>
                     <div>
@@ -166,7 +185,7 @@ const MentorDirectory = () => {
                   <div className="text-sm font-medium text-black/70">{mentor.company}</div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-sm text-gray-700 line-clamp-3">{mentor.bio}</p>
+                  <p className="text-sm text-muted-foreground line-clamp-3">{mentor.bio}</p>
                   
                   <div className="flex items-center gap-2 text-sm">
                     <Calendar className="h-4 w-4" />
@@ -180,12 +199,12 @@ const MentorDirectory = () => {
 
                   <div className="flex flex-wrap gap-1">
                     {mentor.expertise_areas?.slice(0, 3).map((area, index) => (
-                      <Badge key={index} variant="outline" className="text-xs border-black">
+                      <Badge key={index} variant="outline" className="text-xs border-border">
                         {area}
                       </Badge>
                     ))}
                     {mentor.expertise_areas?.length > 3 && (
-                      <Badge variant="outline" className="text-xs border-black">
+                      <Badge variant="outline" className="text-xs border-border">
                         +{mentor.expertise_areas.length - 3} more
                       </Badge>
                     )}
@@ -193,7 +212,7 @@ const MentorDirectory = () => {
 
                   <Button
                     onClick={() => handleBookMentor(mentor)}
-                    className="w-full mt-4 bg-black text-white shadow-[2px_2px_0_0_#000] hover:shadow-none font-bold"
+                    className="w-full mt-4 bg-accent text-accent-foreground hover:bg-accent/90 font-bold"
                   >
                     BOOK SESSION
                   </Button>
