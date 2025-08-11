@@ -7,6 +7,7 @@ import { User, Calendar, DollarSign } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import BookingModal from '@/components/BookingModal';
 import { mentorsMock } from '@/data/mockMentors';
+import SEO from "@/components/SEO";
 
 interface MentorProfile {
   id: string;
