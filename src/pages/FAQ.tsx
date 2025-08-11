@@ -3,27 +3,9 @@ import Header from '@/components/Header';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { faqItems } from '@/data/mockFaq';
 import { Button } from '@/components/ui/button';
+import SEO from "@/components/SEO";
 
 const FAQ = () => {
-  useEffect(() => {
-    document.title = 'Nowledge FAQs – How it works';
-    const desc = 'Answers about mentors, booking, pricing, confidentiality, and becoming a mentor.';
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.setAttribute('name', 'description');
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute('content', desc);
-
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', window.location.origin + '/faq');
-  }, []);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -41,6 +23,7 @@ const FAQ = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      <SEO title="Nowledge FAQs" description="Answers about mentors, booking, pricing, confidentiality, and becoming a mentor." canonicalPath="/faq" jsonLd={jsonLd} />
       <header className="border-b bg-gradient-to-r from-primary/5 to-accent/5">
         <div className="max-w-6xl mx-auto p-8">
           <h1 className="text-3xl font-extrabold tracking-tight mb-2">Frequently Asked Questions</h1>
@@ -71,8 +54,6 @@ const FAQ = () => {
           </div>
         </section>
       </main>
-
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </div>
   );
 };

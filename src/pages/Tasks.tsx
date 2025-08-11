@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import TasksHeader from '@/components/TasksHeader';
 import TasksList from '@/components/TasksList';
 import { useTasks } from '@/hooks/useTasks';
+import SEO from "@/components/SEO";
 
 const Tasks = () => {
   const { user, loading } = useAuth();
@@ -24,6 +25,7 @@ const Tasks = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
+      <SEO title="Browse tasks | Nowledge" description="Explore real tasks and projects—no sign-in required. Find opportunities that match your skills." canonicalPath="/tasks" />
       <main className="max-w-6xl mx-auto p-8">
         <TasksHeader />
         <TasksList tasks={tasks} />

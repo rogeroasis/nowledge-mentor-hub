@@ -2,6 +2,7 @@
 import React from "react";
 import Header from "@/components/Header";
 import MentorCard from "@/components/MentorCard";
+import SEO from "@/components/SEO";
 
 const Index = () => {
   const handleBookMentor = (mentorName: string) => {
@@ -10,29 +11,30 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Header />
+      <SEO title="Nowledge — Learn from the best mentors" description="Connect with industry experts and accelerate your career growth with personalized mentorship." canonicalPath="/" />
       
       {/* Hero Section */}
-      <section className="py-20 px-8 text-center">
+      <section className="py-20 px-8 text-center bg-gradient-to-b from-primary/5 to-transparent">
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6" style={{ letterSpacing: "-0.04em" }}>
           LEARN FROM THE<br />
-          <span className="text-gray-600">BEST MENTORS</span>
+          <span className="text-muted-foreground">BEST MENTORS</span>
         </h1>
-        <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto mb-8">
+        <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-8">
           Connect with industry experts and accelerate your career growth with personalized mentorship
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="/mentors"
-            className="px-8 py-4 bg-black text-white rounded font-bold text-lg shadow-[4px_4px_0_0_#000] hover:shadow-none transition"
+            className="px-8 py-4 bg-primary text-primary-foreground rounded font-bold text-lg shadow-sm hover:shadow-none transition"
             style={{ letterSpacing: "-0.03em" }}
           >
             FIND A MENTOR
           </a>
           <a
             href="/tasks"
-            className="px-8 py-4 border-2 border-black text-black rounded font-bold text-lg shadow-[4px_4px_0_0_#000] hover:shadow-none transition"
+            className="px-8 py-4 border-2 border-primary text-primary rounded font-bold text-lg shadow-sm hover:shadow-none transition"
             style={{ letterSpacing: "-0.03em" }}
           >
             BROWSE TASKS
@@ -69,7 +71,7 @@ const Index = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-extrabold mb-4">FEATURED MENTORS</h2>
-            <p className="text-gray-600 text-lg">Learn from industry leaders and experts</p>
+            <p className="text-muted-foreground text-lg">Learn from industry leaders and experts</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
@@ -99,7 +101,7 @@ const Index = () => {
           <div className="text-center">
             <a
               href="/mentors"
-              className="px-8 py-3 bg-black text-white rounded font-bold shadow-[3px_3px_0_0_#000] hover:shadow-none transition"
+              className="px-8 py-3 bg-accent text-accent-foreground rounded font-bold shadow-sm hover:shadow-none transition"
             >
               VIEW ALL MENTORS
             </a>
@@ -108,14 +110,14 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-8 bg-black text-white text-center">
+      <section className="py-20 px-8 bg-primary text-primary-foreground text-center">
         <h2 className="text-4xl font-extrabold mb-6">READY TO START YOUR JOURNEY?</h2>
-        <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+        <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
           Join thousands of professionals who have accelerated their careers with expert mentorship
         </p>
         <a
           href="/auth"
-          className="px-8 py-4 bg-white text-black rounded font-bold text-lg shadow-[4px_4px_0_0_#666] hover:shadow-none transition"
+          className="px-8 py-4 bg-background text-foreground border border-border rounded font-bold text-lg shadow-sm hover:shadow-none transition"
         >
           GET STARTED TODAY
         </a>

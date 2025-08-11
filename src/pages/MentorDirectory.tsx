@@ -140,7 +140,7 @@ const MentorDirectory = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-2xl font-bold">Loading mentors...</div>
       </div>
     );
@@ -148,6 +148,8 @@ const MentorDirectory = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Find your mentor | Nowledge" description="Browse experienced mentors and book a session with vetted operators." canonicalPath="/mentors" />
+      <SEO title="Find your mentor | Nowledge" description="Browse experienced mentors and book a session with vetted operators." canonicalPath="/mentors" />
       <header className="border-b p-4 bg-gradient-to-r from-primary/5 to-accent/5">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-3xl font-extrabold tracking-tight mb-2">FIND YOUR MENTOR</h1>
